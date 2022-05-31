@@ -11,7 +11,9 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun generatenumberFromDice() {
+        val dice = Dice(6)
+        val rolled = dice.rollDice()
+        assertTrue("The number is within dice sides",rolled in 1..6)
     }
 }
