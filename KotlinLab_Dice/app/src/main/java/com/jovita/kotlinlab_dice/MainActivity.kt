@@ -1,7 +1,9 @@
 package com.jovita.kotlinlab_dice
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        logVerbose("Game Started")
 
         val rollButon: Button = findViewById(R.id.btn_roll)
         rollButon.setOnClickListener { rollDice() }
@@ -28,12 +30,15 @@ class MainActivity : AppCompatActivity() {
         val firstDiceRoll = myFirsDice.rollDice()
         val secondDiceRoll = mySecondDice.rollDice()
 
-        if (firstDiceRoll+secondDiceRoll == myLuckyNumber)
+        if (firstDiceRoll+secondDiceRoll == myLuckyNumber) {
+            logVerbose("Dice rolled lucky number")
             Toast.makeText(this, "Hooray! Its your Lucky number!!", Toast.LENGTH_SHORT).show()
+        }
         setDiceUi(firstDiceRoll,secondDiceRoll)
     }
 
     fun setDiceUi(firstRoll:Int,secondRoll : Int){
+        logVerbose("Setting up dice ui")
         // finding image resource for the random number
         val firstImageResourcex = getImage(firstRoll)
         val secondImageResource = getImage(secondRoll)
@@ -51,6 +56,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getImage(diceNumber : Int) : Int{
+        logVerbose("Get dice image")
         // finding image resource for the random number
         val imageResource = when (diceNumber) {
             1 -> R.drawable.dice_1
@@ -62,6 +68,14 @@ class MainActivity : AppCompatActivity() {
             else -> R.drawable.dice_1
         }
         return imageResource
+    }
+
+    fun logVerbose(msg:String){
+        Log.v(TAG,msg);
+    }
+
+    companion object {
+        private const val TAG: String = "Main Activity"
     }
 }
 
